@@ -167,7 +167,8 @@ def topicResult(request, pk):
                 for mcq in mcqs:
                     if data[str(mcq.id)] == mcq.answer:
                         score += 1
-                result = str(round(score/len(mcqs)*100, 1))
+                result = round(score/len(mcqs)*100,1)
+
             else:
                 result = False
             if completed:
@@ -175,7 +176,7 @@ def topicResult(request, pk):
             else:
                 if score == len(mcqs) or not result:
                     videoView = VideoViews.objects.create(
-                        user=request.user, 
+                        user=request.user,
                         video=video,
                         # changes
                         faculty = request.user,
@@ -201,7 +202,7 @@ def facultyCheck(request,pk):
             faculty = FacultyCheck.objects.get(password = password)
             facultyUser = User.objects.get(pk=faculty.id)
             videoView = VideoViews.objects.create(
-                user=request.user, 
+                user=request.user,
                 video=topic,
                 faculty = facultyUser,
             )

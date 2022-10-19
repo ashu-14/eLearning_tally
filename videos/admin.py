@@ -36,7 +36,7 @@ admin.site.register(VideoViews, VideoViewsAdmin)
 
 class McqAdmin(admin.ModelAdmin):
     list_filter = ['topic',]
-    search_fields = ['question',]
+    search_fields = ['question','topic']
     list_display = ['question', 'answer', 'topic']
 
 

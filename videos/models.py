@@ -40,7 +40,7 @@ class Video(models.Model):
     topicImage = models.ImageField(upload_to='topics/', blank=True)
 
     def __str__(self):
-        return self.title + str(self.id)
+        return self.title
 
 # Model for View on topics
 
@@ -86,4 +86,4 @@ class Attendence(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     inTime = models.DateTimeField(default=None)
     outTime = models.DateTimeField(default=None)
-    
+

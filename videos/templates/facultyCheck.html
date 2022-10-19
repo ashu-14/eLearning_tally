@@ -1,7 +1,7 @@
 {% if mcqs %}
 {% for mcq in mcqs %}
 <div class="card-header p-3 question" >
-    <span style="font-weight:bold"> Q. {{mcq.question}}?</span>
+    <span style="font-weight:bold">  {{mcq.question|safe}}</span>
     <!-- If there is image for this question -->
     {% if mcq.questionImage %}
     <div class="mt-2">
