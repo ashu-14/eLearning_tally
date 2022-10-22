@@ -37,6 +37,8 @@ class Video(models.Model):
     description2 = RichTextField(blank=True)
     videoLink = models.CharField(max_length=500, blank=True)
     hideVideo = models.BooleanField(default=False)
+    # newline
+    facultyCheck = models.BooleanField(default=False)
     topicImage = models.ImageField(upload_to='topics/', blank=True)
 
     def __str__(self):

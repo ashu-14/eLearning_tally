@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+# online excercises for student.
+# saas -
 # Application definition
 
 INSTALLED_APPS = [
@@ -90,6 +91,7 @@ DATABASES = {
         'HOST': 'shaileshyadav1416.mysql.pythonanywhere-services.com',
 
     }
+
 
 }
 
