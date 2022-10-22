@@ -10,6 +10,7 @@
   @media only screen and (max-width: 600px) {
     #hide-topic-button{
       display: inline-block;
+      padding: 0;
     }
     #index-box{
       display: none;
@@ -68,19 +69,19 @@
                   {% for t in topics %}
                     {% if t.id in completedTopics %}
                       <a href="{% url 'topicDetails'  t.id %}">
-                        <li class="list-group-item">{{ t.title }}
+                        <li class="list-group-item" >{{ forloop.counter }}. {{ t.title }}
                           <span class="badge text-bg-success">Completed</span>
                         </li>
                       </a>
                     {% else %}
                       {% if t.id is nextTopic.id %}
                         <a href="{% url 'topicDetails'  t.id %}">
-                          <li class="list-group-item bg-light">{{ t.title }}
+                          <li class="list-group-item bg-light">{{ forloop.counter }}. {{ t.title }}
                             <span class="badge text-bg-danger">Current</span>
                           </li>
                         </a>
                       {% else %}
-                        <li class="list-group-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{ t.title }}</li>
+                        <li class="list-group-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{ forloop.counter }}. {{ t.title }}</li>
                       {% endif %}
                     {% endif %}
                   {% endfor %}
@@ -97,10 +98,17 @@
       <section class="description p-3">
         <h1 style="text-align:center;">&#10024 {{topic.title}} &#10024 </h1>
         <hr>
+<<<<<<< HEAD
 
+=======
+        {% if topic.description %}
+          {{topic.description |safe }}
+        {% endif %}
+        
+>>>>>>> 309b8b29883ea4816238838d16956dd4fb6feef3
         {% if topic.videoLink and topic.hideVideo != True %}
         <div  class="d-flex justify-content-center align-items-center" style="flex-direction:column">
-          <iframe id="video_link" width="100%" height="400" class="border" src="{{topic.videoLink}}? rel=0" allowfullscreen title="Video">
+          <iframe id="video_link" width="100%" height="400" class="border" src="{{topic.videoLink}}?rel=0" allowfullscreen title="Video">
           </iframe>
           <div class="btn btn-secondary btn-block my-2" data-bs-toggle="modal" data-bs-target="#qr" onclick="showVideo()">QR Code</div>
         </div>
@@ -129,14 +137,14 @@
           <img style="max-width:90%;margin:auto;text-align: center;"
             src="{{topic.topicImage.url}}" />
         {% endif %}
-
-        {% if topic.description %}
-        <h2>Description :</h2>
-        {{topic.description |safe }}
-        {% endif %}
-
+        
         {% if topic.description2 %}
+<<<<<<< HEAD
           <h2>Assignment &#128466</h2>
+=======
+        <hr>
+          <h2>Assignment &#128466</h2> 
+>>>>>>> 309b8b29883ea4816238838d16956dd4fb6feef3
           <p>{{topic.description2 | safe}}</p>
         {% endif %}
 
@@ -150,6 +158,7 @@
           <div class="mb-5">
             <h2 class="mb-3">Test yourself by solving some MCQs &#9997</h2>
             {% for mcq in mcqs %}
+<<<<<<< HEAD
                 <div class="card mb-2 p-2">
                     <div class="card-header p-3 question" >
                       <span style="font-weight:bold">{{mcq.question | safe}}</span>
@@ -181,6 +190,43 @@
                             </div>
                         {% endif %}
                     </div>
+=======
+            <!-- {% if not mcq.facultyCheck %} -->
+              <div class="card mb-2 p-2">
+                <div class="card-header p-3 question" >
+                  <span style="font-weight:bold">{{mcq.question | safe}}</span>
+                  <!-- If there is image for this question -->
+                  {% if mcq.questionImage %}
+                  <div class="mt-2">
+                    <img src="{{mcq.questionImage.url}}" alt="" >
+                  </div>
+                  {% endif %}
+                  <!-- if there is hint for this topic -->
+                </div>
+                <div class="mcq-form">
+                  <div>
+                    <input type="radio" name="{{mcq.id}}" id="id_{{mcq.option1}}" value="{{mcq.option1}}" required>
+                    <label for="id_{{mcq.option1}}">{{mcq.option1}}</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="{{mcq.id}}" id="id_{{mcq.option2}}" value="{{mcq.option2}}" required>
+                    <label for="id_{{mcq.option2}}">{{mcq.option2}}</label>
+                  </div>
+                  <!-- if option3 is available -->
+                  {% if mcq.option3 %}
+                  <div>
+                    <input type="radio" name="{{mcq.id}}" id="{{mcq.option3}}" value="{{mcq.option3}}" required>
+                    <label for="id_{{mcq.option3}}">{{mcq.option3}}</label>
+                  </div>
+                  {% endif %}
+                  <!-- if option4 is available -->
+                  {% if mcq.option4 %}
+                  <div>
+                    <input type="radio" name="{{mcq.id}}" id="{{mcq.option4}}" value="{{mcq.option4}}" required>{{mcq.option4}}
+                    <label for="id_{{mcq.option4}}">{{mcq.option4}}</label>
+                  </div>
+                  {% endif %}
+>>>>>>> 309b8b29883ea4816238838d16956dd4fb6feef3
                 </div>
                 <div>
                   {% if mcq.hint %}
@@ -206,10 +252,12 @@
                 <span id="id_check_btn" class="btn btn-danger rounded mx-2">OK</span>
               </div>
               <div id="id_moremcq">
-
               </div>
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 309b8b29883ea4816238838d16956dd4fb6feef3
             {% else  %}
               {% if mcqs%}
               <input type="submit" value="SUBMIT" class="btn btn-success">
