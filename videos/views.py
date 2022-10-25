@@ -39,10 +39,10 @@ def dashboard(request):
             courses = []
             for admission in admissions:
                 courses.append(Course.objects.get(pk=admission.course.id))
-            
+
             # getting user statistics
             # raw queries
-            sql = f'SELECT count(*),date(videos_videoviews.timeOfView) FROM elearning.videos_videoviews where user_id=3  group by date(videos_videoviews.timeOfView);'
+            sql = f'SELECT count(*),date(shaileshyadav141$elearning.videos_videoviews.timeOfView) FROM shaileshyadav141$elearning.videos_videoviews where user_id=3  group by date(shaileshyadav141$elearning.videos_videoviews.timeOfView);'
             submits = VideoViews.objects.filter(user=request.user)
             cursor = connection.cursor()
             cursor.execute(sql)
@@ -52,22 +52,22 @@ def dashboard(request):
             for i in row:
                 daywiseSubmits.append(i[0])
                 dates.append(i[1].strftime('%d-%m-%y'))
-            
-            sql2 = f'''SELECT 
-                        round((COUNT(v.course_id)/(select count(*) from videos_video where course_id=v.course_id)*100),1), v.course_id, c.name
+
+            sql2 = f'''SELECT
+                        round((COUNT(v.course_id)/(select count(*) from shaileshyadav141$elearning.videos_video where course_id=v.course_id)*100),1), v.course_id, c.name
                     FROM
-                        elearning.videos_videoviews AS vv
+                        shaileshyadav141$elearning.videos_videoviews AS vv
                             JOIN
-                        elearning.videos_video AS v ON vv.video_id = v.id
+                        shaileshyadav141$elearning.videos_video AS v ON vv.video_id = v.id
                             JOIN
-                        elearning.videos_course AS c ON v.course_id = c.id
+                        shaileshyadav141$elearning.videos_course AS c ON v.course_id = c.id
                     WHERE
                         vv.user_id = {request.user.id}
                     GROUP BY v.course_id
                     '''
             cursor.execute(sql2)
-            courseCompleted = cursor.fetchall()                        
-            return render(request, 'dashboard.html', 
+            courseCompleted = cursor.fetchall()
+            return render(request, 'dashboard.html',
             {
                 'myCourses': courses,
                 'allCourses':allCourses,
@@ -245,8 +245,8 @@ def facultyCheck(request,pk):
         password = request.GET.get('password')
         topic = Video.objects.get(pk=pk)
         try:
-            faculty = FacultyCheck.objects.get(password = password)
-            facultyUser = User.objects.get(pk=faculty.id)
+            facultylist = FacultyCheck.objects.get(password = password)
+            facultyUser = User.objects.get(pk=facultylist.faculty.id)
             videoView = VideoViews.objects.create(
                 user=request.user,
                 video=topic,
