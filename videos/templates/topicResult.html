@@ -4,36 +4,35 @@
 
 {% if user.is_authenticated %}
     {% if completed  %}
-      {% if success  %}
+      {% if success %}
         <section id="main-content" class="mb-1">
           <h1 class="text-success"> You have already completed this topic successfully.</h1>
-
           <br>
           {% if score %}
-            Your Score : {{score}}/{{total}}
+            <h3 class="text-secondary">
+              Your New Score : {{score}}/{{total}}
+            </h3>
             <br>
-            {% endif %}
-            <a class="btn btn-success" href="{% url 'topicDetails'  nextTopic %}">Next Topic </a>
+          {% endif %}
+            <a  href="{% url 'topicDetails'  nextTopic %}" >
+              <button class="btn btn-success" autofocus>Next Topic </button> </a>
         </section>
-
       {% else %}
         <section id="main-content" class="mb-1">
-          <h1 class="text-info"> You need to improve on this topic. Go through the topic again.</h1>
+          <h1 class="text-info">You need to study this topic well, try again</h1>
           <br>
-
           {% if score %}
-            Your Score : {{score}}/{{total}}
+            <h3 class="text-secondary">
+              Your New Score : {{score}}/{{total}}
+            </h3>
           {% endif %}
-          <button class="btn btn-info" onclick="history.back(-1)">Revise</button>
-
+          <button class="btn btn-info" onclick="history.back(-1)" autofocus>Revise</button>
         </section>
       {% endif %}
-
     {% else %}
-      {% if success  %}
+      {% if success %}
         <section id="main-content" class="mb-1">
           <h1 class="text-success"> You completed this topic successfully.</h1>
-
           <br>
           {% if score %}
             <h3 class="text-secondary">
@@ -41,20 +40,20 @@
             </h3>
             <br>
             {% endif %}
-            <a class="btn btn-success" href="{% url 'topicDetails'  nextTopic %}">Next Topic </a>
+            <a  href="{% url 'topicDetails'  nextTopic %}">
+               <button class="btn btn-success" autofocus>Next Topic </button> </a>
         </section>
 
       {% else %}
         <section id="main-content" class="mb-1">
           <h1 class="text-info"> You need to improve on this topic. Go through the topic again.</h1>
           <br>
-
           {% if score %}
           <h3 class="text-secondary">
             Your Score : {{score}}/{{total}}
           </h3>
           {% endif %}
-          <button class="btn btn-info" onclick="history.back(-1)">Revise</button>
+          <button class="btn btn-info" onclick="history.back(-1)" autofocus>Revise</button>
 
         </section>
       {% endif %}

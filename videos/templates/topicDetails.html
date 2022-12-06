@@ -34,7 +34,7 @@
       <span class="text-info">{{course.name}}</span>
     </a>
     <button id="hide-topic-button" class="fixed" style="float:right ;" >
-      📑
+     Index
     </button>
     <span style="clear: right;"></span>
   </div>
@@ -94,8 +94,8 @@
     </div>
     <div id="content-box" class="col-sm-9" style="height:95vh;overflow:auto;">
 
-      <section class="description p-3">
-        <h1 style="text-align:center;">&#10024 {{topic.title}} &#10024 </h1>
+      <section class="description p-1">
+        <h4 style="text-align:center;">&#10024 {{topic.title}} &#10024 </h4>
         <hr>
         {% if topic.description %}
           {{topic.description |safe }}
@@ -105,7 +105,7 @@
         <div  class="d-flex justify-content-center align-items-center" style="flex-direction:column">
           <iframe id="video_link" width="100%" height="400" class="border" src="{{topic.videoLink}}?rel=0" allowfullscreen title="Video">
           </iframe>
-          <div class="btn btn-secondary btn-block my-2" data-bs-toggle="modal" data-bs-target="#qr" onclick="showVideo()">QR Code</div>
+          <div class="btn btn-secondary btn-block my-1" data-bs-toggle="modal" data-bs-target="#qr" onclick="showVideo()">QR Code</div>
         </div>
         {% endif %}
         {% if topic.hideVideo %}
@@ -135,19 +135,18 @@
 
         {% if topic.description2 %}
         <hr>
-          <h2>Assignment &#128466</h2>
           <p>{{topic.description2 | safe}}</p>
         {% endif %}
 
       </section>
 
       <section>
-        <form action="{% url 'topicResult' topic.id %}" method="post">
+        <form action="{% url 'topicResult' topic.id %}" method="post" onkeydown="return event.key != 'Enter';">
           {% csrf_token %}
           <!-- if mcq availabe for this topic -->
           {% if mcqs %}
           <div class="mb-5">
-            <h2 class="mb-3">Test yourself by solving some MCQs &#9997</h2>
+            <h4 class="mb-3">Test yourself by solving some MCQs &#9997</h4>
             {% for mcq in mcqs %}
             <!-- {% if not mcq.facultyCheck %} -->
               <div class="card mb-2 p-2">
@@ -197,10 +196,16 @@
               <!-- {% endif %} -->
             {% endfor %}
             {% endif %}
+
+            {%if topic.facultyInstructions  %}
+                <p>{{topic.facultyInstructions | safe}}</p>
+            {% endif %}
+
             {% if topic.facultyCheck and not completed %}
             <div class="bg-warning text-dark p-2 border rounded my-2">
               Faculty Password
               <div class="d-flex">
+
                 <input
                   type="password"
                   id="id_faculty_password"
@@ -296,7 +301,7 @@
           content_box.style.opacity = 1
           index_box.style.display = 'none'
           index_box_open = false
-          hide_topic_button.innerHTML = `📑`
+          hide_topic_button.innerHTML = `Index`
         }else{
           index_box.style.display = 'block'
           content_box.style.opacity = 0

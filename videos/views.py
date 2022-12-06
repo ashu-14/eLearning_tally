@@ -85,7 +85,7 @@ def courseDetails(request, pk):
     try:
         if request.user:
             course = Course.objects.get(pk=pk)
-            topics = Video.objects.filter(course=pk)
+            topics = Video.objects.filter(course=pk).order_by('lessonNo')
             topicsCount = len(topics)
             # Creating  sidebar
             sidebar = {}
@@ -108,7 +108,7 @@ def courseDetails(request, pk):
             if len(completedTopics) > 0:
                 lastLesson = Video.objects.get(pk=completedTopics[-1]).lessonNo
                 nextTopic = Video.objects.filter(
-                    lessonNo__gt=lastLesson, course=course).first()
+                    lessonNo__gt=lastLesson, course=course).order_by('lessonNo').first()
                 if nextTopic is None:
                     nextTopic = topics.first()
             else:
@@ -136,7 +136,7 @@ def topicDetails(request, pk):
             topic = Video.objects.get(pk=pk)
             course = Course.objects.get(pk=topic.course.id)
             sections = Section.objects.filter(course=course)
-            topics = Video.objects.filter(course=course.id)
+            topics = Video.objects.filter(course=course.id).order_by('lessonNo')
 
             # creating sidebar menu
             sidebar = {}
@@ -158,7 +158,7 @@ def topicDetails(request, pk):
             if len(completedTopics) > 0:
                 lastLesson = Video.objects.get(pk=completedTopics[-1]).lessonNo
                 nextTopic = Video.objects.filter(
-                    lessonNo__gt=lastLesson, course=course).first()
+                    lessonNo__gt=lastLesson, course=course).order_by('lessonNo').first()
                 if nextTopic is None:
                     nextTopic = topics.first()
             else:
@@ -232,7 +232,7 @@ def topicResult(request, pk):
                 completed = False
 
             nextTopic = Video.objects.filter(
-                    lessonNo__gt=video.lessonNo, course=video.course).first()
+                    lessonNo__gt=video.lessonNo, course=video.course).order_by('lessonNo').first()
             if nextTopic is None:
                     nextTopic = video
             return render(request, 'topicResult.html', {'result': result, 'score': score, 'total': len(mcqs), 'success': score == len(mcqs), 'course': courseId, 'completed': completed,'nextTopic':nextTopic.id})

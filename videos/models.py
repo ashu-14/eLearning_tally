@@ -33,10 +33,11 @@ class Video(models.Model):
         Section, on_delete=models.CASCADE, null=True)
     lessonNo = models.FloatField()
     title = models.CharField(max_length=200)
-    description2 = RichTextField(blank=True,verbose_name='Student Instructions (before Video)')
+    description = RichTextField(blank=True,verbose_name='Student Instructions (before Video)')
+
     videoLink = models.CharField(max_length=500, blank=True)
     hideVideo = models.BooleanField(default=False)
-    description = RichTextField(blank=True,verbose_name='Description (After Video)')
+    description2 = RichTextField(blank=True,verbose_name='Description (After Video)')
     facultyInstructions = RichTextField(blank=True,verbose_name='Faculty Instructions(At Bottom)')
     # newline
     facultyCheck = models.BooleanField(default=False)
